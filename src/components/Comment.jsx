@@ -13,14 +13,14 @@ export const Comment = () => {
               <time datetime="2020-01-01">há 1 hora</time>
             </div>
             <button title="Deletar comentário">
-              <Trash size={20} />
+              <Trash size={24} />
             </button>
           </header>
           <p>Muito bom!</p>
         </div>
         <footer>
           <button>
-            <ThumbsUp /> <span>20</span>
+            <ThumbsUp /> Aplaudir<span>20</span>
           </button>
         </footer>
       </div>
