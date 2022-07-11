@@ -3,7 +3,7 @@ import styles from "./Post.module.css";
 import { Comment } from "./Comment";
 import { Avatar } from "./Avatar";
 
-export const Post = ({ author, content }) => {
+export const Post = ({ author, content, publishedAt }) => {
   return (
     <article className={styles.post}>
       <header>
