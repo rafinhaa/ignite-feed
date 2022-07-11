@@ -1,36 +1,57 @@
+import { format, formatDistanceToNow } from "date-fns";
+import ptBR from "date-fns/esm/locale/pt-BR";
+
 import styles from "./Post.module.css";
 
 import { Comment } from "./Comment";
 import { Avatar } from "./Avatar";
 
 export const Post = ({ author, content, publishedAt }) => {
+  const publishedDateFormatted = format(
+    publishedAt,
+    "d 'de' LLLL 'ás' HH:mm'h'",
+    {
+      locale: ptBR,
+    }
+  );
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    addSuffix: true,
+    locale: ptBR,
+  });
+
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src="https://github.com/rafinhaa.png" />
+          <Avatar src={author.avatarUrl} />
           <div className={styles.authorInfo}>
-            <strong>Rafinhaa</strong>
-            <span>Engineer Development</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
         <time
-          title="11 de Maio de 2022 ás 08:13"
-          dateTime="2022-05-11 08:13:00"
+          title={publishedDateFormatted}
+          dateTime={publishedAt.toISOString()}
         >
-          Publicado há 1h
+          {publishedDateRelativeToNow}
         </time>
       </header>
       <div className={styles.content}>
-        <p>
-          Fala galeraa 👋 Acabei de subir mais um projeto no meu portifa. É um
-        </p>
-        <p>projeto que fiz no NLW Return, evento da Rocketseat. O nome do</p>
-        <p>
-          projeto é DoctorCare 🚀 👉 <a href="#">jane.design/doctorcare</a>{" "}
-          <a href="#">#novoprojeto</a> <a href="#">#nlw</a>{" "}
-          <a href="#">#rocketseat</a>{" "}
-        </p>
+        {content.map((node) => {
+          switch (node.type) {
+            case "paragraph":
+              return <p>{node.content}</p>;
+            case "link":
+              return (
+                <p>
+                  <a href="#">{node.content}</a>
+                </p>
+              );
+            default:
+              return null;
+          }
+        })}
       </div>
       <form className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
