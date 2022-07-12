@@ -9,7 +9,8 @@ import { Comment } from "./Comment";
 import { Avatar } from "./Avatar";
 
 export const Post = ({ author, content, publishedAt }) => {
-  const [comments, setComments] = useState([1, 2, 3]);
+  const [comments, setComments] = useState([]);
+  const [newCommentText, setNewCommentText] = useState("");
 
   const publishedDateFormatted = format(
     publishedAt,
@@ -26,9 +27,12 @@ export const Post = ({ author, content, publishedAt }) => {
 
   const handleCreateNewComment = (e) => {
     e.preventDefault();
-    console.log("Criando novo comentário...");
-    setComments([...comments, comments.length + 1]);
-    console.log(comments);
+    setComments([...comments, newCommentText]);
+    setNewCommentText("");
+  };
+
+  const handleNewCommentChange = (e) => {
+    setNewCommentText(e.target.value);
   };
 
   return (
@@ -66,14 +70,19 @@ export const Post = ({ author, content, publishedAt }) => {
       </div>
       <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
-        <textarea placeholder="Deixe um comentário" />
+        <textarea
+          name="comment"
+          value={newCommentText}
+          placeholder="Deixe um comentário"
+          onChange={handleNewCommentChange}
+        />
         <footer>
           <button type="submit">Publicar</button>
         </footer>
       </form>
       <div className={styles.commentList}>
         {comments.map((comment) => (
-          <Comment key={comment.id} />
+          <Comment key={comment} content={comment} />
         ))}
       </div>
     </article>
