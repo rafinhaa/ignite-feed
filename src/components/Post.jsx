@@ -56,10 +56,10 @@ export const Post = ({ author, content, publishedAt }) => {
         {content.map((node) => {
           switch (node.type) {
             case "paragraph":
-              return <p>{node.content}</p>;
+              return <p key={node.content}>{node.content}</p>;
             case "link":
               return (
-                <p>
+                <p key={node.content}>
                   <a href="#">{node.content}</a>
                 </p>
               );
