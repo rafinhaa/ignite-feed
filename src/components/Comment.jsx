@@ -11,7 +11,7 @@ export const Comment = ({ content, onDeleteComment }) => {
   };
 
   const handleLikeComment = () => {
-    setLikeCount(likeCount + 1);
+    setLikeCount((oldState) => oldState + 1);
   };
 
   return (
