@@ -3,7 +3,9 @@ import { Avatar } from "./Avatar";
 import styles from "./Comment.module.css";
 
 export const Comment = ({ content, onDeleteComment }) => {
-  const handleDeleteComment = () => {};
+  const handleDeleteComment = () => {
+    onDeleteComment(content);
+  };
 
   return (
     <div className={styles.comment}>
@@ -15,7 +17,7 @@ export const Comment = ({ content, onDeleteComment }) => {
               <strong>Rafinhaa</strong>
               <time dateTime="2020-01-01">há 1 hora</time>
             </div>
-            <button onClick={handleDeleteComment()} title="Deletar comentário">
+            <button onClick={handleDeleteComment} title="Deletar comentário">
               <Trash size={24} />
             </button>
           </header>
